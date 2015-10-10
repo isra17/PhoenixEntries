@@ -24,5 +24,12 @@ defmodule PhoenixEntries.Admin.AuthController do
         |> render("index.html")
     end
   end
+
+  def signout(conn, _params) do
+    conn
+    |> delete_session(:current_user)
+    |> put_flash(:info, "Logged out!")
+    |> redirect(to: post_path(conn, :index))
+  end
 end
 

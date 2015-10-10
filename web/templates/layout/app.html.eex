@@ -14,7 +14,7 @@
   <body>
     <div class="container" role="main">
       <div class="header">
-        <h1>Phoenix Entries</h1>
+        <h1><%= link "Phoenix Entries", to: post_path(@conn, :index) %></h1>
       </div>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
@@ -22,7 +22,14 @@
 
       <%= @inner %>
 
-      <p><%= link 'Admin', to: admin_admin_path(@conn, :index) %></p>
+      <p class="footer">
+            <%= if Dict.has_key? assigns, :user do %>
+              <%= link 'Sign out', to: admin_auth_path(@conn, :signout) %>
+              - <%= link 'Admin', to: admin_admin_path(@conn, :index) %>
+            <% else %>
+              <%= link 'Sign in', to: admin_auth_path(@conn, :index) %>
+            <% end %>
+      </p>
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>

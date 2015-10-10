@@ -7,6 +7,7 @@ defmodule PhoenixEntries.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug PhoenixEntries.Plug.LoadUser
   end
 
   pipeline :admin do
@@ -29,6 +30,7 @@ defmodule PhoenixEntries.Router do
 
     get "admin/auth", Admin.AuthController, :index, as: :admin_auth
     post "admin/auth", Admin.AuthController, :auth, as: :admin_auth
+    get "admin/signout", Admin.AuthController, :signout, as: :admin_auth
 
     scope "/admin", Admin, as: :admin do
       pipe_through :admin
