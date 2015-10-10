@@ -10,7 +10,7 @@ defmodule PhoenixEntries.Router do
   end
 
   pipeline :admin do
-    plug PhoenixEntries.AuthService.AuthentifierPlug
+    plug PhoenixEntries.Plug.Authenticate
   end
 
   pipeline :api do

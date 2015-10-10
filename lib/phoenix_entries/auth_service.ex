@@ -19,22 +19,4 @@ defmodule PhoenixEntries.AuthService do
   defp hashed_password(password) do
     Comeonin.Bcrypt.hashpwsalt(password)
   end
-
-  defmodule AuthentifierPlug do
-    import Phoenix.Controller, only: [put_flash: 3, redirect: 2]
-    import Plug.Conn
-
-    def init(caps), do: caps
-
-    def call(conn, caps) do
-      case Plug.Conn.get_session(conn, :current_user) do
-        nil ->
-          conn
-          |> put_flash(:error, "You must be authenticated")
-          |> redirect(to: PhoenixEntries.Router.Helpers.admin_auth_path(conn, :index))
-          |> halt
-        %User{} = user -> assign(conn, :user, user)
-      end
-    end
-  end
 end
