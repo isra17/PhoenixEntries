@@ -5,10 +5,12 @@ defmodule PhoenixEntries.User do
     field :name, :string
     field :password_hash, :string
 
+    field :password, :string, virtual: true
+
     timestamps
   end
 
-  @required_fields ~w(name password_hash)
+  @required_fields ~w(name password)
   @optional_fields ~w()
 
   @doc """

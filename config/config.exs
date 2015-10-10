@@ -27,3 +27,11 @@ import_config "#{Mix.env}.exs"
 config :phoenix, :generators,
   migration: true,
   binary_id: false
+
+# Configure aeacus authenticator
+config :aeacus, Aeacus,
+  repo: PhoenixEntries.Repo,
+  model: PhoenixEntries.User,
+  identity_field: :name,
+  password_field: :password_hash,
+  crypto: Comeonin.Bcrypt

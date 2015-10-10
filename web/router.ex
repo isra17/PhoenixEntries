@@ -9,6 +9,10 @@ defmodule PhoenixEntries.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :admin do
+    plug PhoenixEntries.AuthService.AuthentifierPlug
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -23,8 +27,14 @@ defmodule PhoenixEntries.Router do
       resources "comments", CommentController, only: [:index, :create]
     end
 
+    get "admin/auth", Admin.AuthController, :index, as: :admin_auth
+    post "admin/auth", Admin.AuthController, :auth, as: :admin_auth
+
     scope "/admin", Admin, as: :admin do
+      pipe_through :admin
+
       get "/", AdminController, :index
+
       resources "posts", PostController do
         resources "comments", CommentController, only: [:index, :create]
       end

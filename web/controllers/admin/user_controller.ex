@@ -18,7 +18,7 @@ defmodule PhoenixEntries.Admin.UserController do
   def create(conn, %{"user" => user_params}) do
     changeset = User.changeset(%User{}, user_params)
 
-    case Repo.insert(changeset) do
+    case PhoenixEntries.AuthService.register(changeset, PhoenixEntries.Repo) do
       {:ok, _user} ->
         conn
         |> put_flash(:info, "User created successfully.")
