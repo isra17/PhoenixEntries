@@ -16,15 +16,20 @@ defmodule PhoenixEntries.Router do
   scope "/", PhoenixEntries do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
-    resources "posts", PostController, only: [:index, :show] do
+    resources "users", UserController
+
+    get "/", PostController, :index
+    resources "posts", PostController do
       resources "comments", CommentController, only: [:index, :create]
     end
 
     scope "/admin", Admin, as: :admin do
-      resources "posts", PostController, only: [:index, :show] do
+      get "/", AdminController, :index
+      resources "posts", PostController do
         resources "comments", CommentController, only: [:index, :create]
       end
+
+      resources "users", UserController
     end
   end
 

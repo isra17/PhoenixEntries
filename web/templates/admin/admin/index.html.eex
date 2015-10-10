@@ -1,0 +1,3 @@
+<ul>
+  <li><%= link 'Posts', to: admin_post_path(@conn, :index) %></li>
+</ul>
