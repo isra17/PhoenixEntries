@@ -5,7 +5,7 @@
   <div class="entry">
     <h3><%= link post.title, to: post_path(@conn, :show, post) %></h3>
     <p><%= post.published_at %></p>
-    <p><%= {:safe, post.content} %></p>
+    <p><%= html_content(post.content) %></p>
   </div>
 <% end %>
 </div>
