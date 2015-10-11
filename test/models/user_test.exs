@@ -3,7 +3,7 @@ defmodule PhoenixEntries.UserTest do
 
   alias PhoenixEntries.User
 
-  @valid_attrs %{name: "some content", password_hash: "some content"}
+  @valid_attrs %{name: "some content", password: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

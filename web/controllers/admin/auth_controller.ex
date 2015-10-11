@@ -1,8 +1,6 @@
 defmodule PhoenixEntries.Admin.AuthController do
   use PhoenixEntries.Web, :controller
 
-  alias PhoenixEntries.User
-
   plug :scrub_params, "auth" when action in [:auth]
 
   def index(conn, _params) do

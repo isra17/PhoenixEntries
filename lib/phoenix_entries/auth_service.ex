@@ -3,12 +3,6 @@ defmodule PhoenixEntries.AuthService do
 
   alias PhoenixEntries.User
 
-  def register(user_changeset, repo) do
-    user_changeset
-    |> put_change(:password_hash, hashed_password(user_changeset.params["password"]))
-    |> repo.insert
-  end
-
   def authenticate(username, password) do
     Aeacus.Authenticator.authenticate %{
       identity: username,
@@ -16,7 +10,7 @@ defmodule PhoenixEntries.AuthService do
     }
   end
 
-  defp hashed_password(password) do
+  def hashed_password(password) do
     Comeonin.Bcrypt.hashpwsalt(password)
   end
 end

@@ -1,5 +1,6 @@
 defmodule PhoenixEntries.User do
   use PhoenixEntries.Web, :model
+  use Ecto.Model.Callbacks
 
   schema "users" do
     field :name, :string
@@ -9,6 +10,9 @@ defmodule PhoenixEntries.User do
 
     timestamps
   end
+
+  before_insert :hash_password
+  before_insert :hash_password
 
   @required_fields ~w(name password)
   @optional_fields ~w()
@@ -22,5 +26,10 @@ defmodule PhoenixEntries.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+  end
+
+  def hash_password(changeset) do
+    password_hash = PhoenixEntries.AuthService.hashed_password(changeset.params["password"])
+    put_change(changeset, :password_hash, password_hash)
   end
 end
